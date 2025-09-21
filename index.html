@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sthembiso Mfusi </title>
+    <title>Sthembiso Mfusi</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
 <header>
     <h1>Sthembiso Mfusi</h1>
-    <p>Full-Stack Developer | Johannesburg</p>
+    <p class="subtitle">Full-Stack Developer | Johannesburg</p>
 </header>
 
 <main>
@@ -21,34 +22,56 @@
 
     <section id="projects">
         <h2>Projects</h2>
-        <article>
+        <div class="project-card">
             <h3>Pregnancy Tracker</h3>
             <p>A web application that helps expectant mothers track their pregnancy progress, appointments, and health tips.</p>
-            <a href="https://github.com/Tumelo04/Pregnancy-App">Link to Project</a>
-        </article>
-        <article>
-            <h3>Taxi navigator</h3>
+            <a href="https://github.com/Tumelo04/Pregnancy-App" class="project-link">
+                <i class="fab fa-github"></i> View Project
+            </a>
+        </div>
+        <div class="project-card">
+            <h3>Taxi Navigator</h3>
             <p>A mobile app to help users find taxis and their taxi ranks, their routes and their fares</p>
-            <a href="https://github.com/lathan29/taxi-gudinace-app">Link to Project</a>
-        </article>
+            <a href="https://github.com/lathan29/taxi-gudinace-app" class="project-link">
+                <i class="fab fa-github"></i> View Project
+            </a>
+        </div>
     </section>
 
     <section id="skills">
-        <h2>Skills</h2>
+        <h2>Languages & Technologies</h2>
         <ul>
-            <li>HTML, CSS, TypeScript</li>
-            <li>Python, Java</li>
-            <li>Git, GitHub</li>
+            <li style="--i: 1"><i class="fab fa-html5"></i> HTML</li>
+            <li style="--i: 2"><i class="fab fa-css3-alt"></i> CSS</li>
+            <li style="--i: 3"><i class="fab fa-js-square"></i> TypeScript/JavaScript</li>
+            <li style="--i: 4"><i class="fab fa-java"></i> Java</li>
+            <li style="--i: 5"><i class="fab fa-python"></i> Python</li>
+            <li style="--i: 6"><i class="fab fa-git-alt"></i> Git/GitHub</li>
+            <li style="--i: 7"><i class="fa fa-database"></i> SQLite3</li>
         </ul>
     </section>
 
     <section id="contact">
         <h2>Contact</h2>
-        <p>Email: your-email@example.com</p>
-        <p>LinkedIn: <a href="#">Your LinkedIn Profile</a></p>
-        <p>GitHub: <a href="#">Your GitHub Profile</a></p>
 
-        <form action="https://formspree.io/f/xwpngyqr" method="POST">
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sthembiso-mfusi-03a4a8163/" title="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/SthembisoMfusi" title="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://x.com/thanduxolomfusi" title="Twitter/X">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="mailto:thanduxolomfusi@gmail.com" title="Email">
+                <i class="fa fa-envelope"></i>
+            </a>
+        </div>
+
+        <form action="https://formspree.io/f/xwpngyqr" method="POST" id="contactForm">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
 
@@ -56,16 +79,21 @@
             <input type="email" id="email" name="email" required>
 
             <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+            <textarea id="message" name="message" required placeholder="Tell me about your project ideas..."></textarea>
 
-            <button type="submit">Send Message</button>
+            <button type="submit">
+                <span class="btn-text">Send Message</span>
+                <span class="loading" style="display: none;"></span>
+            </button>
         </form>
     </section>
 </main>
 
 <footer>
-    <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+    <p>&copy; 2025 Sthembiso Mfusi. All Rights Reserved.</p>
 </footer>
+
+<script src="scripts/main.js"></script>
 
 </body>
 </html>

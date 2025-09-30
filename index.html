@@ -12,6 +12,9 @@
 <header>
     <h1>Sthembiso Mfusi</h1>
     <p class="subtitle">Full-Stack Developer | Johannesburg</p>
+    <a href="assets/resume.pdf" download="Sthembiso_Mfusi_Resume.pdf" class="resume-download" title="Download Resume">
+        <i class="fa fa-download"></i> Download Resume
+    </a>
 </header>
 
 <main>
@@ -21,19 +24,67 @@
     </section>
 
     <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-card">
-            <h3>Pregnancy Tracker</h3>
-            <p>A web application that helps expectant mothers track their pregnancy progress, appointments, and health tips.</p>
-            <a href="https://github.com/Tumelo04/Pregnancy-App" class="project-link">
-                <i class="fab fa-github"></i> View Project
-            </a>
+        <h2>Featured Projects</h2>
+        <div class="projects-container">
+            <div class="project-card highlighted" data-repo="Tumelo04/Pregnancy-App">
+                <div class="project-header">
+                    <h3>Pregnancy Tracker</h3>
+                    <span class="badge featured-badge">Featured</span>
+                </div>
+                <p>A web application that helps expectant mothers track their pregnancy progress, appointments, and health tips.</p>
+                <div class="project-meta">
+                    <span class="language-tag">JavaScript</span>
+                    <span class="stars"><i class="fa fa-star"></i> <span class="star-count">-</span></span>
+                </div>
+                <a href="https://github.com/Tumelo04/Pregnancy-App" target="_blank" class="project-link">
+                    <i class="fab fa-github"></i> View Project
+                </a>
+            </div>
+            <div class="project-card highlighted" data-repo="lathan29/taxi-gudinace-app">
+                <div class="project-header">
+                    <h3>Taxi Navigator</h3>
+                    <span class="badge featured-badge">Featured</span>
+                </div>
+                <p>A mobile app to help users find taxis and their taxi ranks, their routes and their fares</p>
+                <div class="project-meta">
+                    <span class="language-tag">JavaScript</span>
+                    <span class="stars"><i class="fa fa-star"></i> <span class="star-count">-</span></span>
+                </div>
+                <a href="https://github.com/lathan29/taxi-gudinace-app" target="_blank" class="project-link">
+                    <i class="fab fa-github"></i> View Project
+                </a>
+            </div>
         </div>
-        <div class="project-card">
-            <h3>Taxi Navigator</h3>
-            <p>A mobile app to help users find taxis and their taxi ranks, their routes and their fares</p>
-            <a href="https://github.com/lathan29/taxi-gudinace-app" class="project-link">
-                <i class="fab fa-github"></i> View Project
+    </section>
+
+    <section id="github-projects">
+        <h2>All Projects from GitHub</h2>
+        <div class="github-stats">
+            <div class="stat-card">
+                <i class="fab fa-github"></i>
+                <div class="stat-number" id="total-repos">-</div>
+                <div class="stat-label">Total Repositories</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa fa-star"></i>
+                <div class="stat-number" id="total-stars">-</div>
+                <div class="stat-label">Total Stars</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa fa-code-branch"></i>
+                <div class="stat-number" id="total-forks">-</div>
+                <div class="stat-label">Total Forks</div>
+            </div>
+        </div>
+        <div id="github-projects-container" class="projects-grid">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Loading GitHub repositories...</p>
+            </div>
+        </div>
+        <div class="github-link-container">
+            <a href="https://github.com/SthembisoMfusi" target="_blank" class="github-profile-link">
+                <i class="fab fa-github"></i> View Full GitHub Profile
             </a>
         </div>
     </section>
@@ -93,6 +144,7 @@
     <p>&copy; 2025 Sthembiso Mfusi. All Rights Reserved.</p>
 </footer>
 
+<script src="scripts/github.js"></script>
 <script src="scripts/main.js"></script>
 
 </body>

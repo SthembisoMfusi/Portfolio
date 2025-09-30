@@ -138,13 +138,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add typing effect completion
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        const subtitle = document.querySelector('.subtitle');
-        if (subtitle) {
-            subtitle.style.width = '100%';
+    const subtitle = document.querySelector('.subtitle');
+    
+    // Create a hidden element to measure the text width
+    if (subtitle) {
+        const measurer = document.createElement('span');
+        measurer.style.visibility = 'hidden';
+        measurer.style.position = 'absolute';
+        measurer.style.whiteSpace = 'nowrap';
+        measurer.style.fontSize = getComputedStyle(subtitle).fontSize;
+        measurer.style.fontFamily = getComputedStyle(subtitle).fontFamily;
+        measurer.textContent = subtitle.textContent;
+        document.body.appendChild(measurer);
+        
+        const textWidth = measurer.offsetWidth;
+        document.body.removeChild(measurer);
+        
+        // Stop the typing animation at the exact text width
+        setTimeout(() => {
+            subtitle.style.width = textWidth + 'px';
             subtitle.style.borderRight = 'none';
-        }
-    }, 3000);
+            subtitle.style.animation = 'none';
+        }, 4500);
+    }
 });
 
 // Enhanced skill hover effects
@@ -262,3 +278,302 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Mouse trail effect - REMOVED per user request
+
+// Scroll progress indicator
+document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.pageYOffset / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+});
+
+// Add CSS for scroll progress
+const scrollProgressStyle = document.createElement('style');
+scrollProgressStyle.textContent = `
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(45deg, #3498db, #9b59b6, #e74c3c);
+        z-index: 10000;
+        transition: width 0.2s ease;
+    }
+`;
+document.head.appendChild(scrollProgressStyle);
+
+// Enhanced project card interactions
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mouseenter', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            this.style.setProperty('--mouse-x', x + 'px');
+            this.style.setProperty('--mouse-y', y + 'px');
+        });
+        
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.03)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+});
+
+// Skill tags interactive tooltip
+document.addEventListener('DOMContentLoaded', function() {
+    const skills = document.querySelectorAll('#skills li');
+    
+    skills.forEach(skill => {
+        skill.addEventListener('click', function() {
+            this.classList.toggle('active');
+            
+            // Add a small animation
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 10);
+        });
+    });
+});
+
+// Add notification system
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fa ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Add CSS for notifications
+const notificationStyle = document.createElement('style');
+notificationStyle.textContent = `
+    .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 15px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 10000;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
+    }
+    
+    .notification.show {
+        transform: translateX(0);
+    }
+    
+    .notification-success {
+        border-left: 4px solid #27ae60;
+    }
+    
+    .notification-success i {
+        color: #27ae60;
+        font-size: 1.3em;
+    }
+    
+    .notification-error {
+        border-left: 4px solid #e74c3c;
+    }
+    
+    .notification-error i {
+        color: #e74c3c;
+        font-size: 1.3em;
+    }
+    
+    .notification span {
+        color: #333;
+        font-weight: 500;
+    }
+`;
+document.head.appendChild(notificationStyle);
+
+// Add "Back to Top" button
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.innerHTML = '<i class="fa fa-arrow-up"></i>';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Add CSS for back to top button
+const backToTopStyle = document.createElement('style');
+backToTopStyle.textContent = `
+    .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(45deg, #3498db, #2980b9);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.2em;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        z-index: 1000;
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 0.3s ease;
+    }
+    
+    .back-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .back-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6);
+    }
+`;
+document.head.appendChild(backToTopStyle);
+
+// Animate elements on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const animateOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all project cards and skill items
+    document.querySelectorAll('.project-card, #skills li, .stat-card').forEach(el => {
+        animateOnScroll.observe(el);
+    });
+});
+
+// Add CSS for scroll animations
+const scrollAnimStyle = document.createElement('style');
+scrollAnimStyle.textContent = `
+    .project-card, #skills li, .stat-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+    }
+    
+    .project-card.animated, #skills li.animated, .stat-card.animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+document.head.appendChild(scrollAnimStyle);
+
+// Add confetti effect on resume download
+document.addEventListener('DOMContentLoaded', function() {
+    const resumeBtn = document.querySelector('.resume-download');
+    
+    if (resumeBtn) {
+        resumeBtn.addEventListener('click', function(e) {
+            createConfetti(e.clientX, e.clientY);
+            showNotification('Resume download started!', 'success');
+        });
+    }
+});
+
+function createConfetti(x, y) {
+    const colors = ['#3498db', '#e74c3c', '#f39c12', '#27ae60', '#9b59b6'];
+    
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = x + 'px';
+        confetti.style.top = y + 'px';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        confetti.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 1000);
+    }
+}
+
+// Add CSS for confetti
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    .confetti {
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        animation: confettiFall 1s ease-out forwards;
+    }
+    
+    @keyframes confettiFall {
+        to {
+            transform: translate(var(--tx), var(--ty)) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(confettiStyle);

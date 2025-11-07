@@ -17,10 +17,9 @@ async function fetchGitHubRepos() {
 
         const repos = await response.json();
         
-        // Filter out forks if you want only original repos (optional)
-        // const originalRepos = repos.filter(repo => !repo.fork);
+
         
-        // Sort by stars and updated date
+
         const sortedRepos = repos.sort((a, b) => {
             // Primary sort by stars
             if (b.stargazers_count !== a.stargazers_count) {
